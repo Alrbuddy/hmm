@@ -122,7 +122,7 @@ end
 local function click_play()
         game:GetService("Players").LocalPlayer.PlayerGui.MainMenu:Destroy() 
 
-        wait(0.10)
+        wait(1)
     
         workspace.CurrentCamera:remove()
         wait(.1)
