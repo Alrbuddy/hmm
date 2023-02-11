@@ -165,9 +165,22 @@ while _G.toggle do
    Player =  game.Players.LocalPlayer
    Character = Player.Character
    if on_menu()then
-       UserInputService.MouseBehavior = Enum.MouseBehavior.Default
        wait(1)
        click_play()
+
+        workspace.CurrentCamera:remove()
+        wait(.1)
+        repeat wait() until game.Players.LocalPlayer.Character ~= nil
+        workspace.CurrentCamera.CameraSubject = game.Players.LocalPlayer.Character:FindFirstChildWhichIsA('Humanoid')
+        workspace.CurrentCamera.CameraType = "Custom"
+        game.Players.LocalPlayer.CameraMinZoomDistance = 0.5
+        game.Players.LocalPlayer.CameraMaxZoomDistance = 400
+        game.Players.LocalPlayer.CameraMode = "Classic"
+        game.Players.LocalPlayer.Character.Head.Anchored = false
+        wait(0.5)
+
+            game:GetService("ReplicatedStorage"):WaitForChild("funs"):WaitForChild("SpawnPlayer"):InvokeServer()    
+
        wait(2)
    elseif not on_menu() and Character then
        if found_heart() then
