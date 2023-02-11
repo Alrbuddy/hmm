@@ -120,31 +120,24 @@ end
 
 
 local function click_play()
-    local player = game:GetService("Players").LocalPlayer
-    local main_menu = player.PlayerGui.MainMenu
+        game:GetService("Players").LocalPlayer.PlayerGui.MainMenu:Destroy() 
 
-    main_menu:Destroy() 
-    wait(1)
+        wait(0.10)
     
-    local camera = workspace.CurrentCamera
-    camera:remove()
-    wait(.1)
-    
-    local character = player.Character
-    repeat wait() until character ~= nil
-    
-    camera.CameraSubject = character:FindFirstChildWhichIsA("Humanoid")
-    camera.CameraType = "Custom"
-    player.CameraMinZoomDistance = 0.5
-    player.CameraMaxZoomDistance = 400
-    player.CameraMode = "Classic"
-    character.Head.Anchored = false
-    wait(1)
-    
-    local spawn_player = game:GetService("ReplicatedStorage").funs.SpawnPlayer
-    spawn_player:InvokeServer()    
+        workspace.CurrentCamera:remove()
+        wait(.1)
+        repeat wait() until game.Players.LocalPlayer.Character ~= nil
+        workspace.CurrentCamera.CameraSubject = game.Players.LocalPlayer.Character:FindFirstChildWhichIsA('Humanoid')
+        workspace.CurrentCamera.CameraType = "Custom"
+        game.Players.LocalPlayer.CameraMinZoomDistance = 0.5
+        game.Players.LocalPlayer.CameraMaxZoomDistance = 400
+        game.Players.LocalPlayer.CameraMode = "Classic"
+        game.Players.LocalPlayer.Character.Head.Anchored = false
+        
+        wait(0.10)
+        
+        game:GetService("ReplicatedStorage"):WaitForChild("funs"):WaitForChild("SpawnPlayer"):InvokeServer()    
 end
-
 
 local function on_menu()
    if game:GetService("Players").LocalPlayer.PlayerGui:FindFirstChild('MainMenu') then
@@ -175,6 +168,7 @@ while _G.toggle do
        UserInputService.MouseBehavior = Enum.MouseBehavior.Default
        wait(1)
        click_play()
+       wait(2)
    elseif not on_menu() and Character then
        if found_heart() then
            local heart = found_heart()
